@@ -1,0 +1,41 @@
+.cardWrapper {
+  background-image: url('src/assets/pokedex-card.png');
+  min-width: 300px;
+  width: 300px;
+  height: 350px;
+  background-size: cover;
+  padding: 45px 10px 10px 10px;
+  gap: 20px;
+  box-sizing: border-box;
+  text-align: center;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.pokemonImg {
+  display: block;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+  border: solid 1px #bdbdbd;
+  box-shadow: 4px 4px 4px 0px rgba(92, 92, 92, 0.2) inset;
+  border-radius: 10px;
+}
+
+.pokemonType {
+  margin: 0;
+  text-align: end;
+}
+
+.pokemonName {
+  margin: 8px auto 0 auto;
+  width: fit-content;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.pokemonNumber {
+  margin: 5px auto 0 auto;
+  width: fit-content;
+  font-size: 15px;
+  color: #707070;
+}
