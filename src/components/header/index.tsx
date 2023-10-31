@@ -1,7 +1,7 @@
 import React from 'react';
 import './styles.css';
 import PokemonSearch from '../search';
-import { PokemonSearchProps } from '../search/types';
+import { PokemonSearchProps } from '../types/types';
 
 class Header extends React.Component<PokemonSearchProps> {
   render() {

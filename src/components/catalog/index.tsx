@@ -26,23 +26,29 @@ class Catalog extends React.Component<
     const apiUrl = await fetch(API_LINK);
     const searchData = await apiUrl.json();
     const foundData = new Promise<PokemonData[]>((resolve) => {
-      searchData.results.forEach(async (element: PokemonUrlData, index: number, arr: PokemonUrlData[]) => {
-        const apiUrl = await fetch(element.url);
-        const searchData = await apiUrl.json();
-        const pokemonTypes = searchData.types
-          .map((el: PokemonTypes) => el.type.name)
-          .join('/');
-        const prepareData = {
-          id: searchData.id,
-          img:searchData.sprites.front_default,
-          name: searchData.name,
-          types: pokemonTypes,
-        };
-        pokemonsData.push(prepareData);
-        if (index === arr.length - 1) {
-          resolve(pokemonsData);
+      searchData.results.forEach(
+        async (
+          element: PokemonUrlData,
+          index: number,
+          arr: PokemonUrlData[]
+        ) => {
+          const apiUrl = await fetch(element.url);
+          const searchData = await apiUrl.json();
+          const pokemonTypes = searchData.types
+            .map((el: PokemonTypes) => el.type.name)
+            .join('/');
+          const prepareData = {
+            id: searchData.id,
+            img: searchData.sprites.front_default,
+            name: searchData.name,
+            types: pokemonTypes,
+          };
+          pokemonsData.push(prepareData);
+          if (index === arr.length - 1) {
+            resolve(pokemonsData);
+          }
         }
-      });
+      );
     });
 
     foundData.then((data) => {
@@ -55,10 +61,12 @@ class Catalog extends React.Component<
   }
 
   render() {
-    const pokemonsData = this.state.pokemonsData.data.sort((a, b) => a.id > b.id ? 1 : -1);
+    const pokemonsData = this.state.pokemonsData.data.sort((a, b) =>
+      a.id > b.id ? 1 : -1
+    );
     return (
       <div className="catalogWrapper">
-                {pokemonsData.map((pokemon: PokemonData) => (
+        {pokemonsData.map((pokemon: PokemonData) => (
           <PokedexCard pokemonsCard={pokemon} key={pokemon.id} />
         ))}
       </div>
