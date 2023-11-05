@@ -24,7 +24,7 @@
 }
 
 .searcWrapper {
-  background-image: url('src/assets/search-Rectangle.png');
+  background-image: url('/src/assets/search-Rectangle.png');
   min-width: 300px;
   width: 400px;
   height: 90px;

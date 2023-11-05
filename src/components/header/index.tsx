@@ -7,7 +7,7 @@ export default function Header(searchProps: PokemonSearchProps) {
     <header>
       <div className="styledFirstHeaderRow">
         <img
-          src="src/assets/pokedex.png"
+          src="/src/assets/pokedex.png"
           alt="pokedex-logo"
           className="pokedexLogo"
         />
