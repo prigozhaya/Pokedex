@@ -1,31 +1,34 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
 import './styles.css';
 import {
-  PokemonCataloghProps,
   PokemonData,
   PokemonTypes,
   PokemonUrlData,
+  CatalogPokemonData,
+  PokemonCataloghProps,
 } from '../types/types';
 import PokedexCard from '../card';
+import Pagination from '../pagination';
 
 const API_LINK = 'https://pokeapi.co/api/v2/pokemon/';
 
-class Catalog extends React.Component<
-  PokemonCataloghProps,
-  { pokemonsData: { data: PokemonData[] } }
-> {
-  constructor(props: PokemonCataloghProps) {
-    super(props);
-    this.state = {
-      pokemonsData: { data: [] },
-    };
-  }
+export default function Catalog(catalogProps: PokemonCataloghProps) {
+  const [pokemonsCount, setPokemonsCount] = useState<number>(1292);
+  const [pokemonsData, setPokemonsData] = useState<CatalogPokemonData>({
+    data: [],
+  });
 
-  gettingInfo = async () => {
+  const apiLink = `${API_LINK}?limit=${catalogProps.elementsPerPage}&offset=${
+    (catalogProps.currentPage - 1) * Number(catalogProps.elementsPerPage)
+  }`;
+
+  async function gettingInfo() {
     const pokemonsData: PokemonData[] = [];
-    const apiUrl = await fetch(API_LINK);
+    const apiUrl = await fetch(apiLink);
     const searchData = await apiUrl.json();
     const foundData = new Promise<PokemonData[]>((resolve) => {
+      setPokemonsCount(searchData.count);
       searchData.results.forEach(
         async (
           element: PokemonUrlData,
@@ -52,26 +55,30 @@ class Catalog extends React.Component<
     });
 
     foundData.then((data) => {
-      this.setState({ pokemonsData: { data } });
+      setPokemonsData({ data });
     });
-  };
-
-  componentDidMount() {
-    this.gettingInfo();
   }
+  useEffect(() => {
+    gettingInfo();
+  }, [catalogProps.elementsPerPage, catalogProps.currentPage]);
 
-  render() {
-    const pokemonsData = this.state.pokemonsData.data.sort((a, b) =>
-      a.id > b.id ? 1 : -1
-    );
-    return (
+  const renderPokemonsData = pokemonsData.data.sort((a, b) =>
+    a.id > b.id ? 1 : -1
+  );
+
+  return (
+    <div>
       <div className="catalogWrapper">
-        {pokemonsData.map((pokemon: PokemonData) => (
+        {renderPokemonsData.map((pokemon: PokemonData) => (
           <PokedexCard pokemonsCard={pokemon} key={pokemon.id} />
         ))}
       </div>
-    );
-  }
+      <Pagination
+        pokemosCount={pokemonsCount}
+        currentPage={catalogProps.currentPage}
+        pokemosPerPage={catalogProps.elementsPerPage}
+        setCurrentPage={catalogProps.setCurrentPage}
+      />
+    </div>
+  );
 }
-
-export default Catalog;
