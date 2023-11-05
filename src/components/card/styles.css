@@ -1,8 +1,8 @@
 .cardWrapper {
   background-image: url('src/assets/pokedex-card.png');
-  min-width: 300px;
-  width: 300px;
-  height: 350px;
+  min-width: 200px;
+  width: 200px;
+  height: 250px;
   background-size: cover;
   padding: 45px 10px 10px 10px;
   gap: 20px;
@@ -13,8 +13,8 @@
 
 .pokemonImg {
   display: block;
-  width: 200px;
-  height: 200px;
+  width: 100px;
+  height: 100px;
   margin: 0 auto;
   border: solid 1px #bdbdbd;
   box-shadow: 4px 4px 4px 0px rgba(92, 92, 92, 0.2) inset;
@@ -24,13 +24,15 @@
 .pokemonType {
   margin: 0;
   text-align: end;
+  font-size: 12px;
 }
 
 .pokemonName {
   margin: 8px auto 0 auto;
   width: fit-content;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 600;
+  text-transform:capitalize
 }
 
 .pokemonNumber {
