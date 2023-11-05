@@ -13,9 +13,26 @@ export type PokemonSearchProps = {
   onPokemoDataChange: (data: PokemonData[]) => void;
 };
 
-export type PokemonCataloghProps = { pokemonsData: PokemonData[] };
+export type PokemonSelectProps = {
+  onElementsPerPage: (value: string) => void;
+  setCurrentPage: (value: number) => void;
+};
+
+export type PokemonCataloghProps = {
+  elementsPerPage: string;
+  setCurrentPage: (value: number) => void;
+  currentPage: number;
+  pokemonsData?: PokemonData[];
+};
 
 export type PokemonCardProps = { pokemonsCard: PokemonData; key: number };
+
+export type PaginationProps = {
+  pokemosCount: number;
+  currentPage: number;
+  pokemosPerPage: string;
+  setCurrentPage: (value: number) => void;
+};
 
 export type PokemonSearchState = {
   searchValue: string;
@@ -36,4 +53,8 @@ export type PokemonData = {
   img: string;
   name: string;
   types: string;
+};
+
+export type CatalogPokemonData = {
+  data: PokemonData[];
 };

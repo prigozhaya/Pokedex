@@ -1,53 +1,46 @@
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent, useState } from 'react';
 import './styles.css';
-import { PokemonSearchProps, PokemonSearchState } from '../types/types';
+// import { PokemonSearchProps } from '../types/types';
 
-class PokemonSearch extends React.Component<
-  PokemonSearchProps,
-  PokemonSearchState
-> {
-  constructor(props: PokemonSearchProps) {
-    super(props);
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      searchValue: '',
-    };
+export default function PokemonSearch() {
+  const value = localStorage.getItem('search');
+  const [searchValue, setSearchValue] = useState<string>(value || '');
+
+  function saveRequest() {
+    localStorage.setItem('search', searchValue);
   }
 
-  saveRequest = () => {
-    localStorage.setItem('search', this.state.searchValue);
-  };
-
-  componentDidMount() {
-    const value = localStorage.getItem('search')
-      ? localStorage.getItem('search')
-      : '';
-    if (value) this.setState({ searchValue: value });
+  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+    setSearchValue(e.target.value);
   }
 
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    this.setState({ searchValue: e.target.value });
-  };
+  // useEffect(() => {
+  //   setFetching(false);
 
-  render() {
-    const serchValue = this.state.searchValue;
-    return (
-      <div className="searcWrapper">
-        <button
-          className="searchButton"
-          onClick={() => this.saveRequest()}
-        ></button>
-        <div className="SearchWrapper">
-          <input
-            type="text"
-            className="SearchInput"
-            onChange={this.handleChange}
-            value={serchValue}
-          />
-        </div>
+  //   return () => {
+  //     dispatch(resetProducts());
+  //   };
+  // }, [location, dispatch]);
+
+  // useEffect(() => {
+  //   if (fetching) {
+  //     dispatch(fetchAllCategories());
+  //     dispatch(fetchCatalog(catalogCurrentPage));
+  //     setFetching(false);
+  //   }
+  // }, [fetching, dispatch, setFetching, catalogCurrentPage]);
+
+  return (
+    <div className="searcWrapper">
+      <button className="searchButton" onClick={saveRequest}></button>
+      <div className="SearchWrapper">
+        <input
+          type="text"
+          className="SearchInput"
+          onChange={handleChange}
+          value={searchValue}
+        />
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-export default PokemonSearch;

@@ -1,36 +1,51 @@
-import React from 'react';
+import { useState } from 'react';
 import Catalog from '../components/catalog';
 import Header from '../components/header';
-import { PokemonCatalogState, PokemonData } from '../components/types/types';
+import { PokemonData } from '../components/types/types';
+import ElementsPerPageDropDown from '../components/elementsPerPageDropDown';
 
-class HomePage extends React.Component<
-  object | Readonly<object>,
-  PokemonCatalogState
-> {
-  constructor(props: object | Readonly<object>) {
-    super(props);
-    this.handlePokemonDataChange = this.handlePokemonDataChange.bind(this);
-    this.state = {
-      pokemonsData: [],
-    };
+export default function HomePage() {
+  // const dispatch = useAppDispatch();
+  // const location = useLocation();
+
+  const [pokemonsData, setPokemonsData] = useState<PokemonData[]>([]);
+  const [currPage, setCurrPage] = useState<number>(1);
+  const [elementsPerPage, setElementsPerPage] = useState<string>('30');
+
+  function handlePokemonDataChange(data: PokemonData[]) {
+    setPokemonsData(data);
+    console.log(pokemonsData);
+  }
+  function handleElementsPerPageChange(value: string) {
+    setElementsPerPage(value);
   }
 
-  handlePokemonDataChange(data: PokemonData[]) {
-    this.setState({ pokemonsData: data }, () => {});
-    this.forceUpdate();
-  }
+  //   useEffect(() => {
+  // console.log(elementsPerPage)
+  //   }, [elementsPerPage]);
 
-  render() {
-    const pokemonsData = this.state.pokemonsData;
-    return (
-      <>
-        <Header onPokemoDataChange={this.handlePokemonDataChange} />
-        <div className="pageContainer">
-          <Catalog pokemonsData={pokemonsData} />
-        </div>
-      </>
-    );
-  }
+  // useEffect(() => {
+  //   if (fetching) {
+  //     dispatch(fetchAllCategories());
+  //     dispatch(fetchCatalog(catalogCurrentPage));
+  //     setFetching(false);
+  //   }
+  // }, [fetching, dispatch, setFetching, catalogCurrentPage]);
+
+  return (
+    <>
+      <Header onPokemoDataChange={handlePokemonDataChange} />
+      <div className="pageContainer">
+        <ElementsPerPageDropDown
+          onElementsPerPage={handleElementsPerPageChange}
+          setCurrentPage={setCurrPage}
+        />
+        <Catalog
+          elementsPerPage={elementsPerPage}
+          setCurrentPage={setCurrPage}
+          currentPage={currPage}
+        />
+      </div>
+    </>
+  );
 }
-
-export default HomePage;
