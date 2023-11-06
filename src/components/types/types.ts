@@ -55,6 +55,21 @@ export type PokemonData = {
   types: string;
 };
 
+export type PokemonAbilities = {
+  ability: { name: string };
+  is_hidden: boolean;
+};
+
+export type PokemonInfo = {
+  id: number;
+  img: string;
+  name: string;
+  types: string;
+  abilities: PokemonAbilities[];
+  height: number;
+  weight: number;
+};
+
 export type CatalogPokemonData = {
   data: PokemonData[];
 };

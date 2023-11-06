@@ -1,11 +1,10 @@
-import { ChangeEvent } from 'react';
 import { PokemonSelectProps } from '../types/types';
 import './styles.css';
 
 export default function ElementsPerPageDropDown(
   SelectProps: PokemonSelectProps
 ) {
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
+  function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     SelectProps.onElementsPerPage(e.target.value);
     SelectProps.setCurrentPage(1);
   }
@@ -16,7 +15,7 @@ export default function ElementsPerPageDropDown(
       <select
         name="elementsPerPage"
         className="dropDown"
-        onChange={() => handleChange}
+        onChange={handleChange}
       >
         <option value="30">30</option>
         <option value="60">60</option>

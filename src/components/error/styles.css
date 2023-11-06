@@ -20,3 +20,18 @@
   top: 100px;
   left: 50px;
 }
+
+.ErrorContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-top: 50px;
+}
+
+.ErrorMsg {
+  color: #fff;
+  font-size: medium;
+}

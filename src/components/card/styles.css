@@ -1,5 +1,5 @@
 .cardWrapper {
-  background-image: url('src/assets/pokedex-card.png');
+  background-image: url('/src/assets/pokedex-card.png');
   min-width: 200px;
   width: 200px;
   height: 250px;

@@ -42,13 +42,17 @@ export default class ErrorBoundary extends React.Component<Props, ErrorState> {
     if (this.state.hasError) {
       return (
         <>
-          <p>Ooops, something went wrong! Ask pikachu for help</p>
-          <img
-            src="https://detectivepikachu.pokemon.com/_images/characters/pikachu-intro.png"
-            alt="oopsImg"
-            className="oopsImg"
-            onClick={this.reloadPage}
-          />
+          <div className="ErrorContainer">
+            <p className="ErrorMsg">
+              Ooops, something went wrong! Ask pikachu for help
+            </p>
+            <img
+              src="https://detectivepikachu.pokemon.com/_images/characters/pikachu-intro.png"
+              alt="oopsImg"
+              className="oopsImg"
+              onClick={this.reloadPage}
+            />
+          </div>
         </>
       );
     }
