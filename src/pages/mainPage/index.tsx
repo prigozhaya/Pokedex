@@ -1,36 +1,24 @@
 import { useState } from 'react';
-import Catalog from '../components/catalog';
-import Header from '../components/header';
-import { PokemonData } from '../components/types/types';
-import ElementsPerPageDropDown from '../components/elementsPerPageDropDown';
+import Catalog from '../../components/catalog';
+import Header from '../../components/header';
+import { PokemonData } from '../../components/types/types';
+import ElementsPerPageDropDown from '../../components/elementsPerPageDropDown';
+import { Outlet, useParams } from 'react-router-dom';
 
 export default function HomePage() {
-  // const dispatch = useAppDispatch();
-  // const location = useLocation();
+  const params = useParams();
+  const currentPage = params?.pageId ? Number(params?.pageId) : 1;
 
   const [pokemonsData, setPokemonsData] = useState<PokemonData[]>([]);
-  const [currPage, setCurrPage] = useState<number>(1);
+  const [currPage, setCurrPage] = useState<number>(currentPage);
   const [elementsPerPage, setElementsPerPage] = useState<string>('30');
 
   function handlePokemonDataChange(data: PokemonData[]) {
     setPokemonsData(data);
-    console.log(pokemonsData);
   }
   function handleElementsPerPageChange(value: string) {
     setElementsPerPage(value);
   }
-
-  //   useEffect(() => {
-  // console.log(elementsPerPage)
-  //   }, [elementsPerPage]);
-
-  // useEffect(() => {
-  //   if (fetching) {
-  //     dispatch(fetchAllCategories());
-  //     dispatch(fetchCatalog(catalogCurrentPage));
-  //     setFetching(false);
-  //   }
-  // }, [fetching, dispatch, setFetching, catalogCurrentPage]);
 
   return (
     <>
@@ -44,7 +32,9 @@ export default function HomePage() {
           elementsPerPage={elementsPerPage}
           setCurrentPage={setCurrPage}
           currentPage={currPage}
+          pokemonsData={pokemonsData}
         />
+        <Outlet />
       </div>
     </>
   );

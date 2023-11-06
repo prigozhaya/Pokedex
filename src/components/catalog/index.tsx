@@ -19,11 +19,10 @@ export default function Catalog(catalogProps: PokemonCataloghProps) {
     data: [],
   });
 
-  const apiLink = `${API_LINK}?limit=${catalogProps.elementsPerPage}&offset=${
-    (catalogProps.currentPage - 1) * Number(catalogProps.elementsPerPage)
-  }`;
-
   async function gettingInfo() {
+    const apiLink = `${API_LINK}?limit=${catalogProps.elementsPerPage}&offset=${
+      (catalogProps.currentPage - 1) * Number(catalogProps.elementsPerPage)
+    }`;
     const pokemonsData: PokemonData[] = [];
     const apiUrl = await fetch(apiLink);
     const searchData = await apiUrl.json();
@@ -58,13 +57,26 @@ export default function Catalog(catalogProps: PokemonCataloghProps) {
       setPokemonsData({ data });
     });
   }
-  useEffect(() => {
-    gettingInfo();
-  }, [catalogProps.elementsPerPage, catalogProps.currentPage]);
 
   const renderPokemonsData = pokemonsData.data.sort((a, b) =>
     a.id > b.id ? 1 : -1
   );
+
+  useEffect(() => {
+    gettingInfo();
+  }, [catalogProps.elementsPerPage, catalogProps.currentPage]);
+
+  useEffect(() => {
+    if (catalogProps.pokemonsData) {
+      if (catalogProps.pokemonsData?.length > 0) {
+        setPokemonsData({
+          data: catalogProps.pokemonsData,
+        });
+      } else {
+        gettingInfo();
+      }
+    }
+  }, [catalogProps.pokemonsData]);
 
   return (
     <div>

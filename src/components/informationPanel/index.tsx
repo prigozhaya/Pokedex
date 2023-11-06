@@ -31,7 +31,7 @@ export default function InformationPanel() {
   };
 
   async function getPokemonInfo() {
-  const API_LINK = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
+    const API_LINK = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
     const apiUrl = await fetch(API_LINK);
     const pokemonInfo = await apiUrl.json();
     const pokemonTypes = pokemonInfo.types
@@ -55,7 +55,7 @@ export default function InformationPanel() {
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  },);
+  });
 
   let number = String(pokemonInfo?.id);
   if (pokemonInfo.id < 100) {
