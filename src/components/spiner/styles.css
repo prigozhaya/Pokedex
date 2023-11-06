@@ -1,4 +1,4 @@
-.spinnerContainer{
+.spinnerContainer {
   position: fixed;
   top: 0;
   right: 0;
@@ -11,13 +11,12 @@
   align-items: center;
 }
 
-.spinnerElement{
+.spinnerElement {
   display: inline-block;
   width: 80px;
   height: 80px;
   background-image: url(/src/assets/Poké_Ball_icon.svg);
   animation: lds-dual-ring 1.2s linear infinite;
-
 }
 /* 
 
@@ -32,12 +31,11 @@
     border-color: #fc8600 transparent #fc8600 transparent;
   } */
 
-  @keyframes lds-dual-ring {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
   }
-
+  100% {
+    transform: rotate(360deg);
+  }
+}
