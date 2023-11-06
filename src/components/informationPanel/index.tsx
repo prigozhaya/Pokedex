@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './styles.css';
 import { PokemonAbilities, PokemonInfo, PokemonTypes } from '../types/types';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -6,9 +6,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 export default function InformationPanel() {
   const { pokemonId } = useParams();
   const navigate = useNavigate();
-
-  const [isOpen, setIsOpen] = useState(false);
-  const ref = useRef<HTMLDivElement>(null);
 
   const [pokemonInfo, setpokemonInfo] = useState<PokemonInfo>({
     id: 1,
@@ -20,14 +17,8 @@ export default function InformationPanel() {
     weight: 100,
   });
 
-  const toggleSidebar = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleOutsideClick = (e: MouseEvent) => {
-    if (ref.current && !ref.current.contains(e.target as Node)) {
-      navigate('..');
-    }
+  const handleOutsideClick = () => {
+    navigate('..');
   };
 
   async function getPokemonInfo() {
@@ -50,11 +41,7 @@ export default function InformationPanel() {
   }
 
   useEffect(() => {
-    document.addEventListener('mousedown', handleOutsideClick);
     getPokemonInfo();
-    return () => {
-      document.removeEventListener('mousedown', handleOutsideClick);
-    };
   });
 
   let number = String(pokemonInfo?.id);
@@ -63,10 +50,12 @@ export default function InformationPanel() {
       pokemonInfo.id < 10 ? '#00' + pokemonInfo.id : '#0' + pokemonInfo.id;
   }
   return (
-    <div className="infoOverlay">
-      <div ref={ref} className={`sidebar ${isOpen ? 'open' : ''}`}>
+    <div>
+      <div className="infoOverlay" onClick={handleOutsideClick}></div>
+
+      <div className={`sidebar`}>
         <div className="infoPanelBlock">
-          <Link to={'..'} className="toggle-btn" onClick={toggleSidebar}>
+          <Link to={'..'} className="toggle-btn">
             <svg
               width="20"
               height="20"
