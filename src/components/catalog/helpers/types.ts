@@ -1,4 +1,7 @@
-import { CatalogPokemonCommonData, CatalogPokemonData } from '../../types/types';
+import {
+  CatalogPokemonCommonData,
+  CatalogPokemonData,
+} from '../../types/types';
 
 export type GetCatalofData = {
   catalogPokemonCommonData: CatalogPokemonCommonData;

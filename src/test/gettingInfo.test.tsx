@@ -1,4 +1,4 @@
-import { gettingInfo } from "../components/catalog/helpers/getCatologInfo";
+import { gettingInfo } from '../components/catalog/helpers/getCatologInfo';
 
 it('should fetch data from API for each element in catalogPokemonCommonData', async () => {
   const catalogPokemonCommonData = {
@@ -18,7 +18,7 @@ it('should fetch data from API for each element in catalogPokemonCommonData', as
   const setCatalogPokemonData = vi.fn();
   global.fetch = vi.fn().mockResolvedValue({
     json: vi.fn().mockResolvedValue(pokemonInfo),
-  }); 
+  });
 
   await gettingInfo({ catalogPokemonCommonData, setCatalogPokemonData });
 

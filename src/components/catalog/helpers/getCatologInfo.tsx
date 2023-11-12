@@ -14,16 +14,15 @@ export async function gettingCommonInfo({
   }`;
   const apiUrl = await fetch(apiLink);
   const searchData = await apiUrl.json();
-    setCatalogPokemonCommonData(searchData.results);
-    setPokemonsCount(searchData.count);
+  setCatalogPokemonCommonData(searchData.results);
+  setPokemonsCount(searchData.count);
 }
-
 
 export async function gettingInfo({
   catalogPokemonCommonData,
-  setCatalogPokemonData
+  setCatalogPokemonData,
 }: GetCatalofData) {
-const ApiPokemonsData: PokemonData[] = [];
+  const ApiPokemonsData: PokemonData[] = [];
   const foundData = new Promise<PokemonData[]>((resolve) => {
     catalogPokemonCommonData.data.forEach(
       async (element: PokemonUrlData, index: number, arr: PokemonUrlData[]) => {

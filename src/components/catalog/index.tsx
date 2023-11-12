@@ -1,7 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from 'react';
 import './styles.css';
-import { CatalogPokemonData, CatalogPokemonContextData, CatalogPokemonCommonData } from '../types/types';
+import {
+  CatalogPokemonData,
+  CatalogPokemonContextData,
+  CatalogPokemonCommonData,
+} from '../types/types';
 import Pagination from '../pagination';
 import { AppPokemonContext } from '../../pages/mainPage';
 import CardList from '../cardList';
@@ -34,7 +38,7 @@ export default function Catalog() {
   }, [elementsPerPage, currentPage]);
 
   useEffect(() => {
-    gettingInfo({catalogPokemonCommonData, setCatalogPokemonData});
+    gettingInfo({ catalogPokemonCommonData, setCatalogPokemonData });
   }, [elementsPerPage, currentPage]);
 
   useEffect(() => {
