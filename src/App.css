@@ -1,0 +1,10 @@
+#root {
+  margin: 0 auto;
+}
+
+.pageContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  font-size: 18px;
+}
