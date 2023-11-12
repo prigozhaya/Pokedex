@@ -10,7 +10,6 @@ export default class ErrorBoundary extends React.Component<Props, ErrorState> {
   constructor(props: Props) {
     super(props);
     this.callingError = this.callingError.bind(this);
-    this.reloadPage = this.reloadPage.bind(this);
     this.state = {
       hasError: false,
       error: null,
@@ -35,23 +34,24 @@ export default class ErrorBoundary extends React.Component<Props, ErrorState> {
     }
   }
 
-  reloadPage() {
-    location.reload();
-  }
   render() {
     if (this.state.hasError) {
       return (
         <>
           <div className="ErrorContainer">
-            <p className="ErrorMsg">
-              Ooops, something went wrong! Ask pikachu for help
-            </p>
-            <img
-              src="https://detectivepikachu.pokemon.com/_images/characters/pikachu-intro.png"
-              alt="oopsImg"
-              className="oopsImg"
-              onClick={this.reloadPage}
-            />
+            <div>
+              <h1 className="ErrorTitle">Gotcha!</h1>
+              <p className="ErrorMsg">
+                Something went wrong! Ask pikachu for help.
+              </p>
+            </div>
+            <a href="/">
+              <img
+                src="/src/assets/pikachu-error.png"
+                alt="oopsImg"
+                className="oopsImg"
+              />
+            </a>
           </div>
         </>
       );

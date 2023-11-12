@@ -1,54 +1,19 @@
-import { useEffect, useState } from 'react';
 import './styles.css';
-import { PokemonAbilities, PokemonInfo, PokemonTypes } from '../types/types';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { PokemonAbilities } from '../types/types';
+import { Link, useNavigate } from 'react-router-dom';
+import { InfoPanelProps } from './types';
+import GetPokemonCode from '../helpers/getPokemonCode';
 
-export default function InformationPanel() {
-  const { pokemonId } = useParams();
+export default function InformationPanel({pokemonInfo}:InfoPanelProps) {
   const navigate = useNavigate();
-
-  const [pokemonInfo, setpokemonInfo] = useState<PokemonInfo>({
-    id: 1,
-    img: 'img',
-    name: 'pokemon',
-    types: 'type',
-    abilities: [{ ability: { name: 'ability' }, is_hidden: false }],
-    height: 100,
-    weight: 100,
-  });
-
+  
   const handleOutsideClick = () => {
     navigate('..');
   };
+  
+  const number = GetPokemonCode(pokemonInfo.id);
 
-  async function getPokemonInfo() {
-    const API_LINK = `https://pokeapi.co/api/v2/pokemon/${pokemonId}`;
-    const apiUrl = await fetch(API_LINK);
-    const pokemonInfo = await apiUrl.json();
-    const pokemonTypes = pokemonInfo.types
-      .map((el: PokemonTypes) => el.type.name)
-      .join('/');
-    const prepareData = {
-      id: pokemonInfo.id,
-      img: pokemonInfo.sprites.front_default,
-      name: pokemonInfo.name,
-      types: pokemonTypes,
-      abilities: pokemonInfo.abilities,
-      height: pokemonInfo.height,
-      weight: pokemonInfo.weight,
-    };
-    setpokemonInfo(prepareData);
-  }
 
-  useEffect(() => {
-    getPokemonInfo();
-  });
-
-  let number = String(pokemonInfo?.id);
-  if (pokemonInfo.id < 100) {
-    number =
-      pokemonInfo.id < 10 ? '#00' + pokemonInfo.id : '#0' + pokemonInfo.id;
-  }
   return (
     <div>
       <div className="infoOverlay" onClick={handleOutsideClick}></div>

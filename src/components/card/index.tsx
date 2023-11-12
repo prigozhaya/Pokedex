@@ -1,17 +1,16 @@
 import './styles.css';
 import { PokemonCardProps } from '../types/types';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AppPokemonContext } from '../../pages/mainPage';
+import GetPokemonCode from '../helpers/getPokemonCode';
 
 export default function PokedexCard(cardProps: PokemonCardProps) {
-  let number = String(cardProps.pokemonsCard.id);
-  if (cardProps.pokemonsCard.id < 100) {
-    number =
-      cardProps.pokemonsCard.id < 10
-        ? '#00' + cardProps.pokemonsCard.id
-        : '#0' + cardProps.pokemonsCard.id;
-  }
+  const { currentPage } = useContext(AppPokemonContext);
+  const number = GetPokemonCode(cardProps.pokemonsCard.id);
+
   return (
-    <Link to={`${cardProps.pokemonsCard.name}`}>
+    <Link to={`/catalog/${currentPage}/${cardProps.pokemonsCard.name}`}>
       <div className="cardWrapper">
         <img
           src={cardProps.pokemonsCard.img}

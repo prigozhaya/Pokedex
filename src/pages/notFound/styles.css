@@ -1,0 +1,23 @@
+.notFoundImg {
+  height: 300px;
+  cursor: pointer;
+}
+
+.notFoundCode {
+  font-size: 80px;
+}
+.notFoundContainer {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding-top: 50px;
+  color: #fff;
+}
+
+.notFoundText {
+  color: #fff;
+  font-size: medium;
+}

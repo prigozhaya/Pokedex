@@ -1,12 +1,13 @@
-import { PokemonSelectProps } from '../types/types';
+import { useContext } from 'react';
+import { AppPokemonContext } from '../../pages/mainPage';
 import './styles.css';
 
-export default function ElementsPerPageDropDown(
-  SelectProps: PokemonSelectProps
-) {
+export default function ElementsPerPageDropDown() {
+  const { setCurrentPage, setElementsPerPage } = useContext(AppPokemonContext);
+
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    SelectProps.onElementsPerPage(e.target.value);
-    SelectProps.setCurrentPage(1);
+    setElementsPerPage(e.target.value);
+    setCurrentPage(1);
   }
 
   return (

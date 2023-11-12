@@ -3,6 +3,9 @@
   cursor: pointer;
 }
 
+.ErrorTitle {
+  font-size: 80px;
+}
 .errorBtn {
   background: #3ae3ea;
   color: #fff;
@@ -29,9 +32,9 @@
   align-items: center;
   gap: 20px;
   padding-top: 50px;
+  color: #fff;
 }
 
 .ErrorMsg {
-  color: #fff;
   font-size: medium;
 }

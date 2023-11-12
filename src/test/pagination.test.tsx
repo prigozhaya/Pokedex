@@ -11,6 +11,8 @@ test('component updates URL query parameter when pagination buttons are clicked'
     <BrowserRouter>
       <AppPokemonContext.Provider
         value={{
+          searchValue: '',
+          setSearchValue: () => {},
           setCurrentPage,
           pokemonsData: [],
           setPokemonsData: () => {},

@@ -1,37 +1,35 @@
 import { Link } from 'react-router-dom';
-import { PaginationProps } from '../types/types';
 import './styles.css';
+import { useContext } from 'react';
+import { AppPokemonContext } from '../../pages/mainPage';
+import { CatalogPokemonContext } from '../catalog';
 
-export default function Pagination(paginationProps: PaginationProps) {
-  const maxPage = Math.floor(
-    paginationProps.pokemosCount / Number(paginationProps.pokemosPerPage)
-  );
+export default function Pagination() {
+  const { elementsPerPage, currentPage, setCurrentPage } =
+    useContext(AppPokemonContext);
+  const { pokemonsCount } = useContext(CatalogPokemonContext);
+
+  const maxPage = Math.floor(pokemonsCount / Number(elementsPerPage));
 
   function handleNext() {
-    let page = paginationProps.currentPage;
+    let page = currentPage;
     page++;
     page = page > maxPage ? maxPage : page;
-    paginationProps.setCurrentPage(page);
+    setCurrentPage(page);
   }
 
   function handlePrev() {
-    let page = paginationProps.currentPage;
+    let page = currentPage;
     page--;
     page = page < 1 ? 1 : page;
-    paginationProps.setCurrentPage(page);
+    setCurrentPage(page);
   }
 
   return (
     <div className="paginationContainer">
-      <div className="currentPage">{paginationProps.currentPage}</div>
+      <div className="currentPage">{currentPage}</div>
       <div className="crossPiece">
-        <Link
-          to={`/catalog/${
-            paginationProps.currentPage < 2
-              ? 1
-              : paginationProps.currentPage - 1
-          }`}
-        >
+        <Link to={`/catalog/${currentPage < 2 ? 1 : currentPage - 1}`}>
           <button className="paginationBtn prevBtn" onClick={handlePrev}>
             ◂
           </button>
@@ -43,9 +41,7 @@ export default function Pagination(paginationProps: PaginationProps) {
         </div>
         <Link
           to={`/catalog/${
-            paginationProps.currentPage > maxPage - 1
-              ? maxPage
-              : paginationProps.currentPage + 1
+            currentPage > maxPage - 1 ? maxPage : currentPage + 1
           }`}
         >
           <button className="paginationBtn nextBtn" onClick={handleNext}>

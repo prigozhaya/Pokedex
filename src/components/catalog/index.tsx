@@ -1,96 +1,57 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import './styles.css';
 import {
-  PokemonData,
-  PokemonTypes,
-  PokemonUrlData,
   CatalogPokemonData,
-  PokemonCataloghProps,
+  CatalogPokemonContextData,
 } from '../types/types';
-import PokedexCard from '../card';
 import Pagination from '../pagination';
+import { AppPokemonContext } from '../../pages/mainPage';
+import gettingInfo from './helpers/getCatologInfo';
+import CardList from '../cardList';
 
-const API_LINK = 'https://pokeapi.co/api/v2/pokemon/';
+export const CatalogPokemonContext = createContext<CatalogPokemonContextData>({
+  pokemonsCount: 1292,
+});
 
-export default function Catalog(catalogProps: PokemonCataloghProps) {
+export default function Catalog() {
+  const { elementsPerPage, currentPage, pokemonsData } = useContext(AppPokemonContext);
   const [pokemonsCount, setPokemonsCount] = useState<number>(1292);
-  const [pokemonsData, setPokemonsData] = useState<CatalogPokemonData>({
-    data: [],
-  });
-
-  async function gettingInfo() {
-    const apiLink = `${API_LINK}?limit=${catalogProps.elementsPerPage}&offset=${
-      (catalogProps.currentPage - 1) * Number(catalogProps.elementsPerPage)
-    }`;
-    const pokemonsData: PokemonData[] = [];
-    const apiUrl = await fetch(apiLink);
-    const searchData = await apiUrl.json();
-    const foundData = new Promise<PokemonData[]>((resolve) => {
-      setPokemonsCount(searchData.count);
-      searchData.results.forEach(
-        async (
-          element: PokemonUrlData,
-          index: number,
-          arr: PokemonUrlData[]
-        ) => {
-          const apiUrl = await fetch(element.url);
-          const searchData = await apiUrl.json();
-          const pokemonTypes = searchData.types
-            .map((el: PokemonTypes) => el.type.name)
-            .join('/');
-          const prepareData = {
-            id: searchData.id,
-            img: searchData.sprites.front_default,
-            name: searchData.name,
-            types: pokemonTypes,
-          };
-          pokemonsData.push(prepareData);
-          if (index === arr.length - 1) {
-            resolve(pokemonsData);
-          }
-        }
-      );
+  const [catalogPokemonData, setCatalogPokemonData] =
+    useState<CatalogPokemonData>({
+      data: [],
     });
 
-    foundData.then((data) => {
-      setPokemonsData({ data });
+  useEffect(() => {
+    gettingInfo({
+      elementsPerPage,
+      currentPage,
+      setPokemonsCount,
+      setCatalogPokemonData,
     });
-  }
-
-  const renderPokemonsData = pokemonsData.data.sort((a, b) =>
-    a.id > b.id ? 1 : -1
-  );
+  }, [elementsPerPage, currentPage]);
 
   useEffect(() => {
-    gettingInfo();
-  }, [catalogProps.elementsPerPage, catalogProps.currentPage]);
-
-  useEffect(() => {
-    if (catalogProps.pokemonsData) {
-      if (catalogProps.pokemonsData?.length > 0) {
-        setPokemonsData({
-          data: catalogProps.pokemonsData,
+    if (pokemonsData) {
+      if (pokemonsData?.length > 0) {
+        setCatalogPokemonData({
+          data: pokemonsData,
         });
       } else {
-        gettingInfo();
+        gettingInfo({
+          elementsPerPage,
+          currentPage,
+          setPokemonsCount,
+          setCatalogPokemonData,
+        });
       }
     }
-  }, [catalogProps.pokemonsData]);
+  }, [pokemonsData]);
 
   return (
-    <div>
-      <div className="catalogWrapper">
-        {renderPokemonsData.map((pokemon: PokemonData) => (
-          <PokedexCard pokemonsCard={pokemon} key={pokemon.id} />
-        ))}
-      </div>
-      <Pagination
-        pokemosCount={pokemonsCount}
-        currentPage={catalogProps.currentPage}
-        pokemosPerPage={catalogProps.elementsPerPage}
-        setCurrentPage={catalogProps.setCurrentPage}
-      />
-    </div>
+    <CatalogPokemonContext.Provider value={{ pokemonsCount }}>
+      <CardList catalogPokemonData = {catalogPokemonData} />
+        <Pagination />
+    </CatalogPokemonContext.Provider>
   );
 }

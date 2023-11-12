@@ -73,3 +73,18 @@ export type PokemonInfo = {
 export type CatalogPokemonData = {
   data: PokemonData[];
 };
+
+export type AppPokemonContextData = {
+  searchValue: string;
+  pokemonsData: PokemonData[];
+  currentPage: number;
+  elementsPerPage: string;
+  setSearchValue: (value: string) => void;
+  setPokemonsData: (data: PokemonData[]) => void;
+  setElementsPerPage: (value: string) => void;
+  setCurrentPage: (value: number) => void;
+};
+
+export type CatalogPokemonContextData = {
+  pokemonsCount: number;
+};

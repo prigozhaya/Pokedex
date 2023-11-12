@@ -1,44 +1,22 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useContext, useState } from 'react';
 import './styles.css';
-import { PokemonSearchProps, PokemonTypes } from '../types/types';
+import { AppPokemonContext } from '../../pages/mainPage';
+import { getPokemonInfo } from './helpers/getSearchData';
 
-export default function PokemonSearch(searchProps: PokemonSearchProps) {
+export default function PokemonSearch() {
   const value = localStorage.getItem('search');
-  const [searchValue, setSearchValue] = useState<string>(value || '');
+  const [searchInputValue, setSearchInputValue] = useState<string>(value || '');
+  const { setPokemonsData, setSearchValue } = useContext(AppPokemonContext);
 
+  
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    setSearchValue(e.target.value);
+    setSearchInputValue(e.target.value);
   }
 
   function saveRequest() {
-    localStorage.setItem('search', searchValue);
-    getPokemonInfo();
-  }
-
-  async function getPokemonInfo() {
-    const API_LINK = `https://pokeapi.co/api/v2/pokemon/${searchValue}`;
-    try {
-      if (searchValue === '') {
-        searchProps.onPokemoDataChange([]);
-      } else {
-        const apiUrl = await fetch(API_LINK);
-        const pokemonInfo = await apiUrl.json();
-        const pokemonTypes = pokemonInfo.types
-          .map((el: PokemonTypes) => el.type.name)
-          .join('/');
-        const prepareData = [
-          {
-            id: pokemonInfo.id,
-            img: pokemonInfo.sprites.front_default,
-            name: pokemonInfo.name,
-            types: pokemonTypes,
-          },
-        ];
-        searchProps.onPokemoDataChange(prepareData);
-      }
-    } catch (e) {
-      alert('Pokemon not found (ฅ• . •ฅ)');
-    }
+    localStorage.setItem('search', searchInputValue);
+    setSearchValue(searchInputValue);
+    getPokemonInfo({ searchInputValue, setPokemonsData });
   }
 
   return (
@@ -49,7 +27,7 @@ export default function PokemonSearch(searchProps: PokemonSearchProps) {
           type="text"
           className="SearchInput"
           onChange={handleChange}
-          value={searchValue}
+          value={searchInputValue}
         />
       </div>
     </div>

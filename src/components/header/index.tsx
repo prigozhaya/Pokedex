@@ -1,8 +1,7 @@
 import './styles.css';
 import PokemonSearch from '../search';
-import { PokemonSearchProps } from '../types/types';
 
-export default function Header(searchProps: PokemonSearchProps) {
+export default function Header() {
   return (
     <header>
       <div className="styledFirstHeaderRow">
@@ -13,7 +12,7 @@ export default function Header(searchProps: PokemonSearchProps) {
         />
       </div>
       <div className="headerContainer">
-        <PokemonSearch onPokemoDataChange={searchProps.onPokemoDataChange} />
+        <PokemonSearch />
       </div>
     </header>
   );

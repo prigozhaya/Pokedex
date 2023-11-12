@@ -6,48 +6,60 @@ import Spinner from './components/spiner';
 
 const HomePage = lazy(() => import('./pages/mainPage'));
 const InformationPage = lazy(() => import('./pages/infoPage'));
+const NotFoundPage = lazy(() => import('./pages/notFound'));
 
 export default function App() {
   return (
-    <ErrorBoundary>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Suspense fallback={<Spinner />}>
-                <HomePage />
-              </Suspense>
-            }
-          >
+    <>
+      <ErrorBoundary>
+        <BrowserRouter>
+          <Routes>
             <Route
-              path=":pokemonId"
+              path="/"
               element={
                 <Suspense fallback={<Spinner />}>
-                  <InformationPage />
+                  <HomePage />
+                </Suspense>
+              }
+            >
+              <Route
+                path="/catalog/:pageId/:pokemonId"
+                element={
+                  <Suspense fallback={<Spinner />}>
+                    <InformationPage />
+                  </Suspense>
+                }
+              />
+            </Route>
+            <Route
+              path="/catalog/:pageId"
+              element={
+                <Suspense fallback={<Spinner />}>
+                  <HomePage />
+                </Suspense>
+              }
+            >
+              <Route
+                path=":pokemonId"
+                element={
+                  <Suspense fallback={<Spinner />}>
+                    <InformationPage />
+                  </Suspense>
+                }
+              />
+            </Route>
+
+            <Route
+              path="*"
+              element={
+                <Suspense fallback={<Spinner />}>
+                  <NotFoundPage />
                 </Suspense>
               }
             />
-          </Route>
-          <Route
-            path="/catalog/:pageId"
-            element={
-              <Suspense fallback={<Spinner />}>
-                <HomePage />
-              </Suspense>
-            }
-          >
-            <Route
-              path=":pokemonId"
-              element={
-                <Suspense fallback={<Spinner />}>
-                  <InformationPage />
-                </Suspense>
-              }
-            />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </ErrorBoundary>
+          </Routes>
+        </BrowserRouter>
+      </ErrorBoundary>
+    </>
   );
 }
