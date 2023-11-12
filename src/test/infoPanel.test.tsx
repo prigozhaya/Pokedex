@@ -15,12 +15,11 @@ const pokemonInfo = {
   ],
 };
 describe('InformationPanel', () => {
-  
   test('displays the detailed card data correctly', () => {
     render(
       <BrowserRouter>
-    <InformationPanel pokemonInfo={pokemonInfo} />
-    </BrowserRouter>
+        <InformationPanel pokemonInfo={pokemonInfo} />
+      </BrowserRouter>
     );
     expect(screen.getByText('Pikachu')).toBeTruthy();
     expect(screen.getByText('#001')).toBeTruthy();
@@ -29,7 +28,6 @@ describe('InformationPanel', () => {
     expect(screen.getByText('6.0 kg')).toBeTruthy();
     expect(screen.getByText('Ability 1, Ability 2')).toBeTruthy();
   });
-
 });
 
 describe('Close button hides the component information panel', () => {

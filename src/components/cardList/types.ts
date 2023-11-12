@@ -1,5 +1,5 @@
-import { CatalogPokemonData } from "../types/types";
+import { CatalogPokemonData } from '../types/types';
 
 export type CardListProps = {
-  catalogPokemonData: CatalogPokemonData
+  catalogPokemonData: CatalogPokemonData;
 };

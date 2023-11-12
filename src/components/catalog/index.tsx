@@ -1,10 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from 'react';
 import './styles.css';
-import {
-  CatalogPokemonData,
-  CatalogPokemonContextData,
-} from '../types/types';
+import { CatalogPokemonData, CatalogPokemonContextData } from '../types/types';
 import Pagination from '../pagination';
 import { AppPokemonContext } from '../../pages/mainPage';
 import gettingInfo from './helpers/getCatologInfo';
@@ -15,7 +12,8 @@ export const CatalogPokemonContext = createContext<CatalogPokemonContextData>({
 });
 
 export default function Catalog() {
-  const { elementsPerPage, currentPage, pokemonsData } = useContext(AppPokemonContext);
+  const { elementsPerPage, currentPage, pokemonsData } =
+    useContext(AppPokemonContext);
   const [pokemonsCount, setPokemonsCount] = useState<number>(1292);
   const [catalogPokemonData, setCatalogPokemonData] =
     useState<CatalogPokemonData>({
@@ -50,8 +48,8 @@ export default function Catalog() {
 
   return (
     <CatalogPokemonContext.Provider value={{ pokemonsCount }}>
-      <CardList catalogPokemonData = {catalogPokemonData} />
-        <Pagination />
+      <CardList catalogPokemonData={catalogPokemonData} />
+      <Pagination />
     </CatalogPokemonContext.Provider>
   );
 }

@@ -1,4 +1,4 @@
-import { getPokemonInfo } from "../components/search/helpers/getSearchData";
+import { getPokemonInfo } from '../components/search/helpers/getSearchData';
 
 it('should retrieve and format data correctly when searchInputValue is not empty', async () => {
   const searchInputValue = 'pikachu';

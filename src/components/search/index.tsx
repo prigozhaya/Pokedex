@@ -8,7 +8,6 @@ export default function PokemonSearch() {
   const [searchInputValue, setSearchInputValue] = useState<string>(value || '');
   const { setPokemonsData, setSearchValue } = useContext(AppPokemonContext);
 
-  
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setSearchInputValue(e.target.value);
   }

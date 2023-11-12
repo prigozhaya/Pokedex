@@ -13,8 +13,8 @@ test('renders the specified number of cards', () => {
 
   render(
     <BrowserRouter>
-  <CardList catalogPokemonData={mockCatalogPokemonData} />
-  </BrowserRouter>
+      <CardList catalogPokemonData={mockCatalogPokemonData} />
+    </BrowserRouter>
   );
 
   const cards = screen.getAllByRole('img');
@@ -28,8 +28,8 @@ test('Check that an appropriate message is displayed if no cards are present', (
 
   render(
     <BrowserRouter>
-  <CardList catalogPokemonData={mockCatalogPokemonData} />
-  </BrowserRouter>
+      <CardList catalogPokemonData={mockCatalogPokemonData} />
+    </BrowserRouter>
   );
 
   const msg = screen.getByText('... it seems the pokedex is empty');

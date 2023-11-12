@@ -21,10 +21,9 @@ export default function InformationPage() {
     getPokemonInfo({ pokemonId, setpokemonInfo });
   }, [pokemonId]);
 
-  
   return (
     <>
-      <InformationPanel pokemonInfo={pokemonInfo}/>
+      <InformationPanel pokemonInfo={pokemonInfo} />
     </>
   );
 }

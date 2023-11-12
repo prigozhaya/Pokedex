@@ -4,15 +4,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { InfoPanelProps } from './types';
 import GetPokemonCode from '../helpers/getPokemonCode';
 
-export default function InformationPanel({pokemonInfo}:InfoPanelProps) {
+export default function InformationPanel({ pokemonInfo }: InfoPanelProps) {
   const navigate = useNavigate();
-  
+
   const handleOutsideClick = () => {
     navigate('..');
   };
-  
-  const number = GetPokemonCode(pokemonInfo.id);
 
+  const number = GetPokemonCode(pokemonInfo.id);
 
   return (
     <div>

@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react";
-import Header from "../components/header";
+import { render, screen } from '@testing-library/react';
+import Header from '../components/header';
 
 it('should render a header with a logo and a search bar', () => {
   render(<Header />);

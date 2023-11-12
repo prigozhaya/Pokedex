@@ -6,5 +6,5 @@ export type GetPokemonInfoArgs = {
 };
 
 export type InfoPanelProps = {
-  pokemonInfo:PokemonInfo
+  pokemonInfo: PokemonInfo;
 };
