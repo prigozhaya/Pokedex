@@ -1,11 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { createContext, useContext, useEffect, useState } from 'react';
 import './styles.css';
-import { CatalogPokemonData, CatalogPokemonContextData } from '../types/types';
+import { CatalogPokemonData, CatalogPokemonContextData, CatalogPokemonCommonData } from '../types/types';
 import Pagination from '../pagination';
 import { AppPokemonContext } from '../../pages/mainPage';
-import gettingInfo from './helpers/getCatologInfo';
 import CardList from '../cardList';
+import { gettingCommonInfo, gettingInfo } from './helpers/getCatologInfo';
 
 export const CatalogPokemonContext = createContext<CatalogPokemonContextData>({
   pokemonsCount: 1292,
@@ -19,14 +19,22 @@ export default function Catalog() {
     useState<CatalogPokemonData>({
       data: [],
     });
+  const [catalogPokemonCommonData, setCatalogPokemonCommonData] =
+    useState<CatalogPokemonCommonData>({
+      data: [],
+    });
 
   useEffect(() => {
-    gettingInfo({
+    gettingCommonInfo({
       elementsPerPage,
       currentPage,
       setPokemonsCount,
-      setCatalogPokemonData,
+      setCatalogPokemonCommonData,
     });
+  }, [elementsPerPage, currentPage]);
+
+  useEffect(() => {
+    gettingInfo({catalogPokemonCommonData, setCatalogPokemonData});
   }, [elementsPerPage, currentPage]);
 
   useEffect(() => {
@@ -36,11 +44,11 @@ export default function Catalog() {
           data: pokemonsData,
         });
       } else {
-        gettingInfo({
+        gettingCommonInfo({
           elementsPerPage,
           currentPage,
           setPokemonsCount,
-          setCatalogPokemonData,
+          setCatalogPokemonCommonData,
         });
       }
     }

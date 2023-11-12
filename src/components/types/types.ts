@@ -74,6 +74,10 @@ export type CatalogPokemonData = {
   data: PokemonData[];
 };
 
+export type CatalogPokemonCommonData = {
+  data: PokemonUrlData[];
+};
+
 export type AppPokemonContextData = {
   searchValue: string;
   pokemonsData: PokemonData[];

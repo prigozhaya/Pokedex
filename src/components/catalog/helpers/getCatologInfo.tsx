@@ -1,23 +1,31 @@
 import { PokemonData, PokemonUrlData, PokemonTypes } from '../../types/types';
-import { GetCatalofData } from './types';
+import { GetCatalofCommonData, GetCatalofData } from './types';
 
 const API_LINK = 'https://pokeapi.co/api/v2/pokemon/';
 
-export default async function gettingInfo({
+export async function gettingCommonInfo({
   elementsPerPage,
   currentPage,
   setPokemonsCount,
-  setCatalogPokemonData,
-}: GetCatalofData) {
+  setCatalogPokemonCommonData,
+}: GetCatalofCommonData) {
   const apiLink = `${API_LINK}?limit=${elementsPerPage}&offset=${
     (currentPage - 1) * Number(elementsPerPage)
   }`;
-  const ApiPokemonsData: PokemonData[] = [];
   const apiUrl = await fetch(apiLink);
   const searchData = await apiUrl.json();
-  const foundData = new Promise<PokemonData[]>((resolve) => {
+    setCatalogPokemonCommonData(searchData.results);
     setPokemonsCount(searchData.count);
-    searchData.results.forEach(
+}
+
+
+export async function gettingInfo({
+  catalogPokemonCommonData,
+  setCatalogPokemonData
+}: GetCatalofData) {
+const ApiPokemonsData: PokemonData[] = [];
+  const foundData = new Promise<PokemonData[]>((resolve) => {
+    catalogPokemonCommonData.data.forEach(
       async (element: PokemonUrlData, index: number, arr: PokemonUrlData[]) => {
         const apiUrl = await fetch(element.url);
         const searchData = await apiUrl.json();
