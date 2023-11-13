@@ -39,7 +39,7 @@ export default function Catalog() {
 
   useEffect(() => {
     gettingInfo({ catalogPokemonCommonData, setCatalogPokemonData });
-  }, [elementsPerPage, currentPage]);
+  }, [catalogPokemonCommonData]);
 
   useEffect(() => {
     if (pokemonsData) {
