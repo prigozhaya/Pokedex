@@ -14,11 +14,12 @@ export async function gettingCommonInfo({
   }`;
   const apiUrl = await fetch(apiLink);
   const searchData = await apiUrl.json();
-  setCatalogPokemonCommonData(searchData.results);
+  setCatalogPokemonCommonData({data: searchData.results});
   setPokemonsCount(searchData.count);
 }
 
-export async function gettingInfo({
+export async function 
+gettingInfo({
   catalogPokemonCommonData,
   setCatalogPokemonData,
 }: GetCatalofData) {
