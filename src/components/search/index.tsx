@@ -1,12 +1,13 @@
-import { ChangeEvent, useContext, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import './styles.css';
-import { AppPokemonContext } from '../../pages/mainPage';
-import { getPokemonInfo } from './helpers/getSearchData';
+import { setSearchValue } from '../../store/slices/searchSlice';
+import { useAppDispatch } from '../../store/hooks';
 
 export default function PokemonSearch() {
+
   const value = localStorage.getItem('search');
   const [searchInputValue, setSearchInputValue] = useState<string>(value || '');
-  const { setPokemonsData, setSearchValue } = useContext(AppPokemonContext);
+  const dispatch = useAppDispatch();
 
   function handleChange(e: ChangeEvent<HTMLInputElement>) {
     setSearchInputValue(e.target.value);
@@ -14,8 +15,8 @@ export default function PokemonSearch() {
 
   function saveRequest() {
     localStorage.setItem('search', searchInputValue);
-    setSearchValue(searchInputValue);
-    getPokemonInfo({ searchInputValue, setPokemonsData });
+    dispatch(setSearchValue({searchInputValue}));
+    // getPokemonInfo({ searchInputValue, setPokemonsData });
   }
 
   return (

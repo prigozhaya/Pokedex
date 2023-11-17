@@ -18,18 +18,6 @@
   background-image: url(/src/assets/Poké_Ball_icon.svg);
   animation: lds-dual-ring 1.2s linear infinite;
 }
-/* 
-
-  &:after {
-    content: ' ';
-    display: block;
-    width: 64px;
-    height: 64px;
-    margin: 8px;
-    border-radius: 50%;
-    border: 6px solid #fc8600;
-    border-color: #fc8600 transparent #fc8600 transparent;
-  } */
 
 @keyframes lds-dual-ring {
   0% {
