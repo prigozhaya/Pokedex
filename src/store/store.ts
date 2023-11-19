@@ -1,14 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
-import searchReducer from "./slices/searchSlice"
-import metaInfoReducer from "./slices/metaInfoSlice"
-import pokemonReducer from "./slices/pokemonSlice"
+import searchReducer from './slices/searchSlice';
+import metaInfoReducer from './slices/metaInfoSlice';
+import loadingStatusReducer from './slices/loadingStatusSlice';
 import { pokemonApi } from './api';
 
 export const store = configureStore({
   reducer: {
     searchValue: searchReducer,
     metaInfo: metaInfoReducer,
-    pokemonData: pokemonReducer,
+    loadingStatus: loadingStatusReducer,
     [pokemonApi.reducerPath]: pokemonApi.reducer,
   },
 
