@@ -3,15 +3,16 @@ import { PokemonAbilities } from '../types/types';
 import { Link, useNavigate } from 'react-router-dom';
 import { InfoPanelProps } from './types';
 import GetPokemonCode from '../helpers/getPokemonCode';
+import { useAppSelector } from '../../store/hooks';
 
 export default function InformationPanel({ pokemonInfo }: InfoPanelProps) {
   const navigate = useNavigate();
+  const page = useAppSelector((state) => state.metaInfo.currentPage);
+  const number = GetPokemonCode(pokemonInfo.id);
 
   const handleOutsideClick = () => {
-    navigate('..');
+    navigate(`/catalog/${page}`);
   };
-
-  const number = GetPokemonCode(pokemonInfo.id);
 
   return (
     <div>
@@ -19,7 +20,7 @@ export default function InformationPanel({ pokemonInfo }: InfoPanelProps) {
 
       <div className={`sidebar`}>
         <div className="infoPanelBlock">
-          <Link to={'..'} className="toggle-btn">
+          <Link to={`/catalog/${page}`} className="toggle-btn">
             <svg
               width="20"
               height="20"

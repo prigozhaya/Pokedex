@@ -9,38 +9,7 @@ export type PokemonTypes = {
   type: { name: string };
 };
 
-export type PokemonSearchProps = {
-  onPokemoDataChange: (data: PokemonData[]) => void;
-};
-
-export type PokemonSelectProps = {
-  onElementsPerPage: (value: string) => void;
-  setCurrentPage: (value: number) => void;
-};
-
-export type PokemonCataloghProps = {
-  elementsPerPage: string;
-  setCurrentPage: (value: number) => void;
-  currentPage: number;
-  pokemonsData?: PokemonData[];
-};
-
-export type PokemonCardProps = { pokemonsCard: PokemonData; key: number };
-
-export type PaginationProps = {
-  pokemosCount: number;
-  currentPage: number;
-  pokemosPerPage: string;
-  setCurrentPage: (value: number) => void;
-};
-
-export type PokemonSearchState = {
-  searchValue: string;
-};
-
-export type PokemonCatalogState = {
-  pokemonsData: PokemonData[];
-};
+export type PokemonCardProps = { pokemonName: string; key: string };
 
 export type ErrorState = {
   hasError: boolean;
@@ -53,11 +22,30 @@ export type PokemonData = {
   img: string;
   name: string;
   types: string;
+  abilities: PokemonAbilities[];
+  height: number;
+  weight: number;
+};
+
+export type PokemonResponse = {
+  abilities: PokemonAbilities[];
+  id: number;
+  sprites: {
+    front_default: string;
+  };
+  name: string;
+  types: PokemonTypes[];
+  height: number;
+  weight: number;
+};
+
+export type PokemonsListResponse = {
+  count: number;
+  results: PokemonUrlData[];
 };
 
 export type PokemonAbilities = {
   ability: { name: string };
-  is_hidden: boolean;
 };
 
 export type PokemonInfo = {
@@ -74,21 +62,7 @@ export type CatalogPokemonData = {
   data: PokemonData[];
 };
 
-export type CatalogPokemonCommonData = {
-  data: PokemonUrlData[];
-};
-
-export type AppPokemonContextData = {
-  searchValue: string;
-  pokemonsData: PokemonData[];
-  currentPage: number;
+export type FetchPokemonList = {
   elementsPerPage: string;
-  setSearchValue: (value: string) => void;
-  setPokemonsData: (data: PokemonData[]) => void;
-  setElementsPerPage: (value: string) => void;
-  setCurrentPage: (value: number) => void;
-};
-
-export type CatalogPokemonContextData = {
-  pokemonsCount: number;
+  currentPage: number;
 };

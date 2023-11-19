@@ -1,4 +1,4 @@
-export default function GetPokemonCode(pokemonId: number) {
+export default function getPokemonCode(pokemonId: number = 1) {
   const code =
     pokemonId >= 100
       ? `#${pokemonId}`

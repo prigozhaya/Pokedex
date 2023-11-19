@@ -1,25 +1,31 @@
-import React, { useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useParams } from 'react-router-dom';
 import InformationPanel from '../../components/informationPanel';
-import { PokemonInfo } from '../../components/types/types';
-import { getPokemonInfo } from './helpers/getInfo';
+import { useGetPokemonByNameQuery } from '../../store/api';
+import { useEffect } from 'react';
+import { setDitailsLoadingStatus } from '../../store/slices/loadingStatusSlice';
+import { useAppDispatch } from '../../store/hooks';
 
 export default function InformationPage() {
   const { pokemonId } = useParams();
+  const dispatch = useAppDispatch();
 
-  const [pokemonInfo, setpokemonInfo] = React.useState<PokemonInfo>({
+  const defaultPokemonInfo = {
     id: 1,
     img: 'img',
     name: 'pokemon',
     types: 'type',
-    abilities: [{ ability: { name: 'ability' }, is_hidden: false }],
+    abilities: [{ ability: { name: 'ability' } }],
     height: 100,
     weight: 100,
-  });
+  };
+
+  const { data: pokemonInfo = defaultPokemonInfo, isLoading } =
+    useGetPokemonByNameQuery(pokemonId || '');
 
   useEffect(() => {
-    getPokemonInfo({ pokemonId, setpokemonInfo });
-  }, [pokemonId]);
+    dispatch(setDitailsLoadingStatus({ ditailsLoadingStatus: isLoading }));
+  }, [isLoading]);
 
   return (
     <>

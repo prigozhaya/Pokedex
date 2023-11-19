@@ -41,3 +41,8 @@
   font-size: 15px;
   color: #707070;
 }
+
+.linkWrapper {
+  text-decoration: none;
+  color: #000000;
+}

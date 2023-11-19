@@ -4,7 +4,6 @@ import { setSearchValue } from '../../store/slices/searchSlice';
 import { useAppDispatch } from '../../store/hooks';
 
 export default function PokemonSearch() {
-
   const value = localStorage.getItem('search');
   const [searchInputValue, setSearchInputValue] = useState<string>(value || '');
   const dispatch = useAppDispatch();
@@ -15,8 +14,7 @@ export default function PokemonSearch() {
 
   function saveRequest() {
     localStorage.setItem('search', searchInputValue);
-    dispatch(setSearchValue({searchInputValue}));
-    // getPokemonInfo({ searchInputValue, setPokemonsData });
+    dispatch(setSearchValue({ searchInputValue }));
   }
 
   return (
