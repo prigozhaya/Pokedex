@@ -1,6 +1,8 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import InformationPanel from '../components/informationPanel';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { store } from '../store/store';
 
 const pokemonInfo = {
   id: 1,
@@ -17,9 +19,11 @@ const pokemonInfo = {
 describe('InformationPanel', () => {
   test('displays the detailed card data correctly', () => {
     render(
-      <BrowserRouter>
-        <InformationPanel pokemonInfo={pokemonInfo} />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <InformationPanel pokemonInfo={pokemonInfo} />
+        </BrowserRouter>
+      </Provider>
     );
     expect(screen.getByText('Pikachu')).toBeTruthy();
     expect(screen.getByText('#001')).toBeTruthy();
@@ -33,14 +37,16 @@ describe('InformationPanel', () => {
 describe('Close button hides the component information panel', () => {
   it('Should close a detailed card component when clicked', () => {
     render(
-      <BrowserRouter>
-        <InformationPanel pokemonInfo={pokemonInfo} />
-      </BrowserRouter>
+      <Provider store={store}>
+        <BrowserRouter>
+          <InformationPanel pokemonInfo={pokemonInfo} />
+        </BrowserRouter>
+      </Provider>
     );
 
     const cardElement = screen.getByRole('link');
 
     fireEvent.click(cardElement);
-    expect(window.location.pathname).toBe('/');
+    expect(window.location.pathname).toBe('/catalog/1');
   });
 });

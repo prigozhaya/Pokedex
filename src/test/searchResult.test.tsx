@@ -1,25 +1,10 @@
-import { renderHook } from '@testing-library/react';
-import GetSearchResult from '../components/cardList/helpers/searchResult';
-import { AppPokemonContext } from '../pages/mainPage';
+import getSearchResult from '../components/cardList/helpers/searchResult';
 
-it('should return a string with the search query when searchValue is not an empty string', () => {
-  const { result } = renderHook(() => GetSearchResult(), {
-    wrapper: ({ children }) => (
-      <AppPokemonContext.Provider
-        value={{
-          searchValue: 'pikachu',
-          setSearchValue: () => {},
-          pokemonsData: [],
-          setPokemonsData: () => {},
-          currentPage: 1,
-          setCurrentPage: () => {},
-          elementsPerPage: '30',
-          setElementsPerPage: () => {},
-        }}
-      >
-        {children}
-      </AppPokemonContext.Provider>
-    ),
-  });
-  expect(result.current).toBe('Searching results for the query "pikachu"');
+it('should return a string with the search query when the searchValue parameter is not empty', () => {
+  const searchValue = 'test';
+  const expectedResult = 'Searching results for the query "test"';
+
+  const result = getSearchResult(searchValue);
+
+  expect(result).toBe(expectedResult);
 });
