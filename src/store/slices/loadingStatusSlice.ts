@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
- 
+
 const loadingStatusSlice = createSlice({
   name: 'loadingStatus',
   initialState: {
@@ -12,9 +12,10 @@ const loadingStatusSlice = createSlice({
     },
     setDitailsLoadingStatus(state, { payload }) {
       state.ditailsLoadingStatus = payload.ditailsLoadingStatus;
-    }
+    },
   },
 });
 
-export const { setCatalogLoadingStatus, setDitailsLoadingStatus} = loadingStatusSlice.actions;
+export const { setCatalogLoadingStatus, setDitailsLoadingStatus } =
+  loadingStatusSlice.actions;
 export default loadingStatusSlice.reducer;

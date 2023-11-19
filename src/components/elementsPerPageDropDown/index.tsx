@@ -1,13 +1,21 @@
-import { useContext } from 'react';
-import { AppPokemonContext } from '../../pages/mainPage';
 import './styles.css';
+import { useAppDispatch } from '../../store/hooks';
+import {
+  setCurrentPage,
+  setElementsPerPage,
+} from '../../store/slices/metaInfoSlice';
+import { useNavigate } from 'react-router-dom';
+import { setSearchValue } from '../../store/slices/searchSlice';
 
 export default function ElementsPerPageDropDown() {
-  const { setCurrentPage, setElementsPerPage } = useContext(AppPokemonContext);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    setElementsPerPage(e.target.value);
-    setCurrentPage(1);
+    dispatch(setCurrentPage({ currentPage: 1 }));
+    dispatch(setElementsPerPage({ elementsPerPage: e.target.value }));
+    dispatch(setSearchValue({ searchInputValue: '' }));
+    navigate('..');
   }
 
   return (

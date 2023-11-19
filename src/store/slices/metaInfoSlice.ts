@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
- 
+
 const metaInfoSlice = createSlice({
   name: 'metaInfo',
   initialState: {
@@ -20,5 +20,6 @@ const metaInfoSlice = createSlice({
   },
 });
 
-export const { setCurrentPage, setElementsPerPage, setPokemonsCount } = metaInfoSlice.actions;
+export const { setCurrentPage, setElementsPerPage, setPokemonsCount } =
+  metaInfoSlice.actions;
 export default metaInfoSlice.reducer;
